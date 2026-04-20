@@ -1,0 +1,266 @@
+﻿<Page x:Class="OptiCleanPro.Views.PerformancePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="White">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="18,12">
+
+            <!-- ══ HEADER ══ -->
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Click="Back_Click"
+                        Background="Transparent" BorderThickness="0"
+                        Cursor="Hand" Padding="0,0,8,0" VerticalAlignment="Center">
+                    <TextBlock Text="&#xE76B;" FontFamily="Segoe MDL2 Assets"
+                               FontSize="16" Foreground="#333"/>
+                </Button>
+
+                <Grid Grid.Column="1" Width="48" Height="48" Margin="0,0,10,0">
+                    <Ellipse Fill="White" Stroke="#E0E0E0" StrokeThickness="1"/>
+                    <TextBlock Text="&#xE9D9;" FontFamily="Segoe MDL2 Assets"
+                               FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#E53935" Offset="0"/>
+                                <GradientStop Color="#FB8C00" Offset="0.4"/>
+                                <GradientStop Color="#4CAF50" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </Grid>
+
+                <TextBlock Grid.Column="2" Text="Performance"
+                           FontSize="22" FontWeight="Bold"
+                           Foreground="#111" VerticalAlignment="Center"/>
+
+                <Border Grid.Column="3" BorderBrush="#0078D4" BorderThickness="1.5"
+                        CornerRadius="5" Padding="12,6" Cursor="Hand" VerticalAlignment="Center">
+                    <TextBlock Text="Scan Report" FontSize="12"
+                               Foreground="#0078D4" FontWeight="SemiBold"/>
+                </Border>
+            </Grid>
+
+            <!-- ══ GAUGE ══ -->
+            <Canvas x:Name="GaugeCanvas" Width="300" Height="180"
+                    HorizontalAlignment="Center" Margin="0,0,0,4">
+
+                <Path Stroke="#EEEEEE" StrokeThickness="26" Fill="Transparent"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                      Data="M 45,148 A 105,105 0 0 1 255,148"/>
+
+                <Path Stroke="#E53935" StrokeThickness="26" Fill="Transparent"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Flat"
+                      Data="M 45,148 A 105,105 0 0 1 75,72"/>
+
+                <Path Stroke="#FB8C00" StrokeThickness="26" Fill="Transparent"
+                      StrokeStartLineCap="Flat" StrokeEndLineCap="Flat"
+                      Data="M 75,72 A 105,105 0 0 1 150,43"/>
+
+                <Path Stroke="#C6D02A" StrokeThickness="26" Fill="Transparent"
+                      StrokeStartLineCap="Flat" StrokeEndLineCap="Flat"
+                      Data="M 150,43 A 105,105 0 0 1 225,72"/>
+
+                <Path Stroke="#43A047" StrokeThickness="26" Fill="Transparent"
+                      StrokeStartLineCap="Flat" StrokeEndLineCap="Round"
+                      Data="M 225,72 A 105,105 0 0 1 255,148"/>
+
+                <Line x:Name="NeedleLine"
+                      X1="150" Y1="148" X2="90" Y2="80"
+                      Stroke="#222222" StrokeThickness="3.5"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+
+                <Ellipse Width="18" Height="18" Fill="#333"
+                         Canvas.Left="141" Canvas.Top="139"/>
+                <Ellipse Width="9" Height="9" Fill="White"
+                         Canvas.Left="145.5" Canvas.Top="143.5"/>
+
+                <TextBlock x:Name="PercentLabel"
+                           Canvas.Left="0" Canvas.Top="150"
+                           Width="300" Text="48%"
+                           FontSize="28" FontWeight="Bold" Foreground="#111"
+                           TextAlignment="Center"/>
+            </Canvas>
+
+            <TextBlock Text="Speed up your computer by disabling unnecessary services and animations."
+                       FontSize="12" Foreground="#666" TextWrapping="Wrap"
+                       Margin="0,0,0,14"/>
+
+            <!-- ══ MODE TEMPLATE (REUSED STRUCTURE) ══ -->
+
+            <!-- BASIC -->
+            <Border BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="8" Margin="0,0,0,8">
+                <StackPanel>
+
+                    <Border Padding="12,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="&#xE9CE;" FontFamily="Segoe MDL2 Assets"
+                                       FontSize="26" Foreground="#0078D4"
+                                       VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                            <TextBlock Grid.Column="1" Text="Basic" FontSize="16"
+                                       FontWeight="Bold" Foreground="#111" VerticalAlignment="Center"/>
+
+                            <Button Grid.Column="2" Content="Apply" Click="Apply_Basic"
+                                    Style="{StaticResource ApplyBtn}" Margin="0,0,8,0"/>
+
+                            <Button Grid.Column="3" Click="Expand_Basic"
+                                    Style="{StaticResource ExpandBtn}">
+                                <TextBlock Text="&#xE76C;" FontFamily="Segoe MDL2 Assets"
+                                           FontSize="12" Foreground="#888"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="BasicPanel" Visibility="Collapsed"
+                            BorderBrush="#F0F0F0" BorderThickness="0,1,0,0"
+                            Background="#FAFAFA" CornerRadius="0,0,8,8">
+                        <StackPanel x:Name="BasicTable" Margin="12,8,12,10"/>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+
+            <!-- MODERATE -->
+            <Border BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="8" Margin="0,0,0,8">
+                <StackPanel>
+
+                    <Border Padding="12,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="&#xE9CE;" FontFamily="Segoe MDL2 Assets"
+                                       FontSize="26" Foreground="#FB8C00"
+                                       VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                            <TextBlock Grid.Column="1" Text="Moderate" FontSize="16"
+                                       FontWeight="Bold" Foreground="#111" VerticalAlignment="Center"/>
+
+                            <Button Grid.Column="2" Content="Apply" Click="Apply_Moderate"
+                                    Style="{StaticResource ApplyBtn}" Margin="0,0,8,0"/>
+
+                            <Button Grid.Column="3" Click="Expand_Moderate"
+                                    Style="{StaticResource ExpandBtn}">
+                                <TextBlock Text="&#xE76C;" FontFamily="Segoe MDL2 Assets"
+                                           FontSize="12" Foreground="#888"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="ModeratePanel" Visibility="Collapsed"
+                            BorderBrush="#F0F0F0" BorderThickness="0,1,0,0"
+                            Background="#FAFAFA" CornerRadius="0,0,8,8">
+                        <StackPanel x:Name="ModerateTable" Margin="12,8,12,10"/>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+
+            <!-- MAXIMUM -->
+            <Border BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="8" Margin="0,0,0,8">
+                <StackPanel>
+
+                    <Border Padding="12,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="&#xE9CE;" FontFamily="Segoe MDL2 Assets"
+                                       FontSize="26" Foreground="#E53935"
+                                       VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                            <TextBlock Grid.Column="1" Text="Maximum" FontSize="16"
+                                       FontWeight="Bold" Foreground="#111" VerticalAlignment="Center"/>
+
+                            <Button Grid.Column="2" Content="Apply" Click="Apply_Maximum"
+                                    Style="{StaticResource ApplyBtn}" Margin="0,0,8,0"/>
+
+                            <Button Grid.Column="3" Click="Expand_Maximum"
+                                    Style="{StaticResource ExpandBtn}">
+                                <TextBlock Text="&#xE76C;" FontFamily="Segoe MDL2 Assets"
+                                           FontSize="12" Foreground="#888"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="MaximumPanel" Visibility="Collapsed"
+                            BorderBrush="#F0F0F0" BorderThickness="0,1,0,0"
+                            Background="#FAFAFA" CornerRadius="0,0,8,8">
+                        <StackPanel x:Name="MaximumTable" Margin="12,8,12,10"/>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+
+            <!-- CUSTOM -->
+            <Border BorderBrush="#E8E8E8" BorderThickness="1" CornerRadius="8" Margin="0,0,0,8">
+                <StackPanel>
+
+                    <Border Padding="12,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="&#xE713;" FontFamily="Segoe MDL2 Assets"
+                                       FontSize="26" Foreground="#555"
+                                       VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                            <TextBlock Grid.Column="1" Text="Custom" FontSize="16"
+                                       FontWeight="Bold" Foreground="#111" VerticalAlignment="Center"/>
+
+                            <Button Grid.Column="2" Content="Apply" Click="Apply_Custom"
+                                    Style="{StaticResource ApplyBtn}" Margin="0,0,8,0"/>
+
+                            <Button Grid.Column="3" Click="Expand_Custom"
+                                    Style="{StaticResource ExpandBtn}">
+                                <TextBlock Text="&#xE76C;" FontFamily="Segoe MDL2 Assets"
+                                           FontSize="12" Foreground="#888"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="CustomPanel" Visibility="Collapsed"
+                            BorderBrush="#F0F0F0" BorderThickness="0,1,0,0"
+                            Background="#FAFAFA" CornerRadius="0,0,8,8"
+                            Padding="12,8,12,10">
+                        <StackPanel x:Name="CustomOptionsStack"/>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+
+            <Button Content="Restore Defaults" Click="RestoreDefaults_Click"
+                    Background="Transparent" BorderThickness="0"
+                    FontSize="13" Foreground="#0078D4"
+                    HorizontalAlignment="Center" Cursor="Hand"
+                    Margin="0,6,0,20"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
